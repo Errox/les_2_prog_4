@@ -8,7 +8,7 @@ var app = express()
 app.use(morgan('dev'))
 app.use(bodyParser.json())
 
-const port = 3000
+const port = proces.env.PORT || 3000
 
 
 
