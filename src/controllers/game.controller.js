@@ -1,4 +1,5 @@
 const Game = require('../models/game.model')
+const ApiError = require('../models/apierror.model')
 
 let games = [
 	new Game('Battlefield 5', 'EA', 2018, 'FPS')
@@ -19,10 +20,11 @@ module.exports = {
 	getById(req, res, next) {
 		const id = req.params.gameId
 		console.log('id = ' + id)
-		if(id < 0 || id > games.length){
-			next('error');
-		}else{
-			res.status(200).json(game[id]).end();
+
+		if(id < 0 || id > games.length-1){
+			next(new ApiError('Id does not exist', 404))
+		} else {
+			res.status(200).json(games[id]).end()
 		}
 	},
 
